@@ -124,21 +124,21 @@ class Flatpickr extends DateTimePicker
         if ($component->isMultiplePicker()) {
             $conjunction = $this->getConjunction();
             if (is_array($state)) {
-                $state = collect($state)->map(static fn ($date) => $component->parseToCarbon($date));
+                $state = collect($state)->map(static fn($date) => $component->parseToCarbon($date));
             } else {
-                $state = collect([$state])->map(static fn ($date) => $component->parseToCarbon($date));
+                $state = collect([$state])->map(static fn($date) => $component->parseToCarbon($date));
             }
             $state = $state
-                ->filter(static fn ($date) => $date instanceof CarbonInterface);
+                ->filter(static fn($date) => $date instanceof CarbonInterface);
         } elseif ($component->isRangePicker()) {
             $conjunction = ' to ';
             if (is_array($state)) {
-                $state = collect($state)->map(static fn ($date) => $component->parseToCarbon($date));
+                $state = collect($state)->map(static fn($date) => $component->parseToCarbon($date));
             } else {
-                $state = collect([$state])->map(static fn ($date) => $component->parseToCarbon($date));
+                $state = collect([$state])->map(static fn($date) => $component->parseToCarbon($date));
             }
             $state = $state
-                ->filter(static fn ($date) => $date instanceof CarbonInterface)
+                ->filter(static fn($date) => $date instanceof CarbonInterface)
                 ->take(2);
         } else {
             $conjunction = null;
@@ -200,7 +200,7 @@ class Flatpickr extends DateTimePicker
         }
         $component->rule(
             'date',
-            static fn (
+            static fn(
                 Flatpickr $component
             ): bool => $component->isMultiplePicker() && ! $component->isRangePicker() && $component->hasDate(),
         );
@@ -259,12 +259,12 @@ class Flatpickr extends DateTimePicker
 
     protected function setUp(): void
     {
-        $this->afterStateHydrated(fn (Flatpickr $component, $state) => $component->hydrateFlatpickr(
+        $this->afterStateHydrated(fn(Flatpickr $component, $state) => $component->hydrateFlatpickr(
             $component,
             $state
         ));
 
-        $this->dehydrateStateUsing(fn (Flatpickr $component, $state) => $component::dehydrateFlatpickr(
+        $this->dehydrateStateUsing(fn(Flatpickr $component, $state) => $component::dehydrateFlatpickr(
             $component,
             $state
         ));
@@ -340,7 +340,7 @@ class Flatpickr extends DateTimePicker
         if (! $this->isMultiplePicker() && ! $this->isRangePicker()) {
             $this->rule(static function (DateTimePicker $component) {
                 return "before_or_equal:{$component->getMaxDate()}";
-            }, static fn (DateTimePicker $component): bool => (bool) $component->getMaxDate());
+            }, static fn(DateTimePicker $component): bool => (bool) $component->getMaxDate());
         }
 
         return $this;
@@ -353,7 +353,7 @@ class Flatpickr extends DateTimePicker
         if (! $this->isMultiplePicker() && ! $this->isRangePicker()) {
             $this->rule(static function (DateTimePicker $component) {
                 return "after_or_equal:{$component->getMinDate()}";
-            }, static fn (DateTimePicker $component): bool => (bool) $component->getMinDate());
+            }, static fn(DateTimePicker $component): bool => (bool) $component->getMinDate());
         }
 
         return $this;
@@ -952,7 +952,7 @@ class Flatpickr extends DateTimePicker
             $attrs->put('inline', $this->isInline());
         }
 
-        $this->dispatchEvent('attributes-updated', id: $this->getId());
+        //$this->dispatchEvent('attributes-updated', id: $this->getId());
 
         return $attrs->toArray();
     }
